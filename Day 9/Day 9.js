@@ -115,3 +115,146 @@ countries.findIndex(country => country == "Norway")
 
 //Use findIndex to find the position of Russia if it doesn't exist in the array you will get -1.
 countries.findIndex(country => country == "Russia")
+
+//Level 2
+
+//Find the total price of products by chaining two or more array iterators(eg. arr.map(callback).filter(callback).reduce(callback))
+let totalPrice = products.filter(p => typeof p.price != 'string').reduce((acc, cur) => acc + cur.price, 0);
+
+//Find the sum of price of products using only reduce reduce(callback))
+let totalPrice2 = products.reduce((sum, obj) => { return typeof obj.price != 'string' ? sum += obj.price: sum;
+}, 0);
+
+//Declare a function called categorizeCountries which returns an array of countries which have some common pattern(you find the countries array in this repository as countries.js(eg 'land', 'ia', 'island','stan')).
+let categorizeCountries = (arr) => {
+  return arr.filter(c => c.endsWith('en'));
+}
+
+//Create a function which return an array of objects, which is the letter and the number of times the letter use to start with a name of a country.
+let frequentLetterList = Countries.map(c => c[0]).reduce((obj, cur) => {
+  obj[cur] = (obj[cur] || 0) +1;
+  return obj;
+}, {})
+console.log(frequentLetterList);
+/**
+function getObject(arr) {
+  let object = {};
+  for(const i of arr) {
+     if(object.hasOwnProperty(i)) {
+        object[i] += 1;
+     } 
+     else {
+        object[i] = 1;
+     }
+  }
+  return object;
+}
+console.log(getObject(frequentLetter));
+**/
+
+//Declare a getFirstTenCountries function and return an array of ten countries. Use different functional programming to work on the countries.js array
+let getFirstTenCountries = arr => arr.filter(c => arr.indexOf(c)<10);
+
+//Declare a getLastTenCountries function which which returns the last ten countries in the countries array.
+let getLastTenCountries = arr => arr.filter(c=> arr.indexOf(c) > arr.length-11);
+
+//Find out which letter is used many times as initial for a country name from the countries array (eg. Finland, Fiji, France etc)
+let frequentFirstLetter = Object.entries(Countries.map(c => c[0]).reduce((acc,cur) => {
+  acc[cur] = (acc[cur] || 0) +1;
+  return acc;
+}, {})).reduce((obj, cur) => {
+  obj.max = (obj.max || cur[1]);
+  obj.letter = (obj.letter || '');
+
+  if (obj.max < cur[1]) {
+     obj.max = cur[1];
+     obj.letter = cur[0];
+  }
+  return obj;
+}, {}).letter;
+
+console.log(frequentFirstLetter);
+// { [1, 2]: [2, 4 ]}
+
+//Level 3
+
+// LEVEL 3 Challenges| Functional Programming
+// data
+const countries2 = [
+  {
+     name: 'Afghanistan',
+     capital: 'Kabul',
+     languages: ['Pashto', 'Uzbek', 'Turkmen'],
+     population: 27657145,
+     flag: 'https://restcountries.eu/data/afg.svg',
+     currency: 'Afghan afghani'
+},
+  {
+     name: 'Åland Islands',
+     capital: 'Mariehamn',
+     languages: ['Swedish'],
+     population: 28875,
+     flag: 'https://restcountries.eu/data/ala.svg',
+     currency: 'Euro'
+},
+  {
+     name: 'Albania',
+     capital: 'Tirana',
+     languages: ['Albanian'],
+     population: 2886026,
+     flag: 'https://restcountries.eu/data/alb.svg',
+     currency: 'Albanian lek'
+},
+  {
+     name: 'Algeria',
+     capital: 'Algiers',
+     languages: ['Arabic'],
+     population: 40400000,
+     flag: 'https://restcountries.eu/data/dza.svg',
+     currency: 'Algerian dinar'
+},
+  {
+     name: 'American Samoa',
+     capital: 'Pago Pago',
+     languages: ['English', 'Samoan'],
+     population: 57100,
+     flag: 'https://restcountries.eu/data/asm.svg',
+     currency: 'United State Dollar'
+},
+  {
+     name: 'Andorra',
+     capital: 'Andorra la Vella',
+     languages: ['Catalan'],
+     population: 78014,
+     flag: 'https://restcountries.eu/data/and.svg',
+     currency: 'Euro'
+}]
+
+//Use the countries information, in the data folder. Sort countries by name, by capital, by population
+
+// 1: sort by name     
+let sortedByName = countries2.map(o => o.name );  
+sortedByName.forEach(x =>console.log(x));
+
+// 2: sort by capital
+let sortedByCapital = countries2.sort((a, b) => a.capital.localeCompare(b.capital));
+sortedByCapital.forEach(o=>console.log(o));
+
+// 3: sort by population 
+let sortedByPopulation = countries2.sort((a, b) => b.population - a.population);
+sortedByPopulation.forEach(x => console.log(x));
+
+// Find the 10 most spoken languages:
+let mostSpoken = Object.entries(countries2.reduce((langs, obj) => { obj.languages.forEach(x => langs.push(x));
+  return langs;
+}, []).reduce((dict, lang) => {
+  dict[lang] = (dict[lang] || 0) +1;
+  return dict;
+}, {})).sort((a, b) => b[1]-a[1]);
+mostSpoken.forEach(x => console.log(x));
+
+// 
+function sortByMostPopulated (countries) { 
+ let mostPopulated = countries2.sort((a, b) => b.population - a.population);
+ return mostPopulated;
+}
