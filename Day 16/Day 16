@@ -1,0 +1,32 @@
+// LEVEL 1 Challenges
+// 1   
+let skillsString = JSON.stringify(skills);
+
+// 2   
+let ageString = JSON.stringify(age);
+
+// 3
+let isMarriedString = JSON.stringify(isMarried) 
+
+// 4   
+let studentObjString = JSON.stringify(student);
+
+// LEVEL 1 Complete
+// LEVEL 2 Challenge
+// 1 
+let fewStudents = JSON.stringify(student, ['firstName', 'lastName', 'skills'], 4);
+
+// LEVEL 3 Challenge
+// 1 
+let jsonedText = JSON.parse(txt);
+
+// 2 
+let filteredJSON = JSON.parse(txt, (key, value) => {
+  let max = 0;
+  max = max < value.length ? value.length: max;
+  
+  return max > value.length ? undefined: value;
+})
+
+console.log(filteredJSON);
+// Level 3 complete
